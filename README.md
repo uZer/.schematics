@@ -11,5 +11,5 @@ Linux
 Windows
 - putty configuration files
 
-*
+Any
 - powerlined fonts
