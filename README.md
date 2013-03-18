@@ -9,5 +9,7 @@ Linux
 - gnome-terminal configuration
 
 Windows
-- putty configuration
+- putty configuration files
+
+*
 - powerlined fonts
