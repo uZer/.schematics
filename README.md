@@ -1,4 +1,13 @@
-DotfilesSchematics
+Dotfile Schematics
 ==================
 
-Nothing more than my boring dotfiles
+Nothing more than my boring dotfiles and terminal configurations.
+
+Linux
+- vimrc
+- zshrc
+- gnome-terminal configuration
+
+Windows
+- putty configuration
+- powerlined fonts
