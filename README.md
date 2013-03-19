@@ -3,13 +3,13 @@ Dotfile Schematics
 
 Nothing more than my boring dotfiles and terminal configurations.
 
-Linux
+# Linux
 - vimrc
 - zshrc
 - gnome-terminal configuration
 
-Windows
+# Windows
 - putty configuration files
 
-Any
+# Any
 - powerlined fonts
