@@ -1,9 +1,9 @@
 #!/bin/sh
 # Quick and dirty:
 # Hastly install dotfiles for current user
-# TODO: Clean this out!
+# TODO: Clean this mess out!
 
-S_PATH="~/.schematics"
+S_PATH="/home/$USER/.schematics"
 
 # Backup
 mkdir ~/.back
@@ -13,5 +13,6 @@ mv ~/.vimrc ~/.back
 mv ~/.vim ~/.back
 
 # Make links
-ln -s $S_PATH/vim/vimrc ~/.vimrc
-ln -s $S_PATH/vim ~/.vim
+ln -s "$S_PATH/vim/vimrc" "/home/$USER/.vimrc"
+ln -s "$S_PATH/vim" "/home/$USER/.vim"
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
