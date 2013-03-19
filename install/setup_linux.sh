@@ -27,4 +27,12 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 echo "Done."
 echo
 echo "Please run vim and type :BundleInstall to install necessary bundles."
-
+echo
+echo "If you want to enable Powerline, you should edit the path in your new \
+    .vimrc file. I can provide you some help on this location :"
+echo `locate powerline | grep "/site-packages/powerline$"`
+echo
+echo "If you need to install powerline, please run:"
+echo "pip install --user git+git://github.com/Lokaltog/powerline"
+echo
+echo "I'm no wizard."

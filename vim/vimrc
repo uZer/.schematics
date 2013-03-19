@@ -362,7 +362,7 @@ function! <SID>BufcloseCloseIt()
     endif
 endfunction
 
-set rtp+=/home/ypiolet/.local/lib/python2.7/site-packages/powerline/bindings/vim
+set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
 
 set nocompatible               " be iMproved
 filetype off                   " required!
