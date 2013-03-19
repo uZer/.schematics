@@ -16,6 +16,7 @@ mv ~/.vim ~/.back
 # Make links
 ln -s "$S_PATH/vim/vimrc" "/home/$USER/.vimrc"
 ln -s "$S_PATH/vim" "/home/$USER/.vim"
+ln -s "$S_PATH/powerline" "/home/$USER/.config/powerline"
 # We love links
 
 # Install these sexy stuff I would never make on my own
@@ -29,8 +30,8 @@ echo
 echo "Please run vim and type :BundleInstall to install necessary bundles."
 echo
 echo "If you want to enable Powerline, you should edit the path in your new \
-    .vimrc file. I can provide you some help on this location :"
-echo `locate powerline | grep "/site-packages/powerline$"`
+.vimrc file. I can provide you some help on this location :"
+echo `locate powerline | grep "powerline$"`
 echo
 echo "If you need to install powerline, please run:"
 echo "pip install --user git+git://github.com/Lokaltog/powerline"
