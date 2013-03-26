@@ -3,37 +3,62 @@
 # Hastly install dotfiles for current user
 # TODO: Clean this mess out!
 
-S_PATH="$HOME/.schematics"
+###############################################################################
+# ENVIRONMENT
+SCH_PATH="$HOME/.schematics" # Dotfiles
+SCH_ISGRAPHICAL="true" # True if X is installed (powerline font configuration)
 
-# Backup
-# TODO: Check if files exist before doing anything stupid
+INST_POW="true"
+INST_VIM="true"
 
-## Powerline-conf install
-# On new profiles, .config folder doesn't exists
-mkdir $HOME/.config
-# Link configuration
-ln -s "$S_PATH/powerline" "$HOME/.config/powerline"
-ln -s "$S_PATH/fonts" "$HOME/.fonts"
-# We love links
+_DEBUG="on" # Debug mod
+[ "$_DEBUG" == "on" ] &&  echo "Debugging mod enabled"
 
-## Vim-conf install
-# Make links
-ln -s "$S_PATH/vim/vimrc" "$HOME/.vimrc"
-ln -s "$S_PATH/vim" "$HOME/.vim"
+###############################################################################
+# Cleaning method
+# Backup old configuration files, remove links
+function cleaning()
+{
+    # TODO: What has to be done
+}
 
-# Install this sexy stuff I would never make on my own
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
-# I should tell you something
-echo "Done."
-echo
-echo "Please run vim and type :BundleInstall to install necessary bundles."
-echo
-echo "If you want to enable Powerline, you should edit the path in your new \
-.vimrc file. I can provide you some help on this location :"
-echo `locate powerline | grep "powerline$"`
-echo
-echo "If you need to install powerline, please run:"
-echo "pip install --user git+git://github.com/Lokaltog/powerline"
-echo
-echo "I'm no wizard."
+# Install powerline with pip
+# REQUIRES: python-pip
+function installPowerline()
+{
+    pip install --user git+http://github.com/Lokaltog/powerline
+
+    # On new profiles, .config folder doesn't exists
+    # TODO: clean this
+    mkdir $HOME/.config
+
+    # Linking
+    ln -s "$S_PATH/powerline" "$HOME/.config/powerline"
+
+    # Copying fonts if necessary
+    test [[]]
+    ln -s "$S_PATH/fonts" "$HOME/.fonts"
+
+}
+
+# Install vim configuration files
+# Retrieve vundle
+function installVim()
+{
+    # Make links
+    ln -s "$S_PATH/vim/vimrc" "$HOME/.vimrc"
+    ln -s "$S_PATH/vim" "$HOME/.vim"
+
+    # Install this sexy stuff I would never make on my own
+    git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+
+    echo "Please run vim and type :BundleInstall to install necessary bundles."
+}
+
+# Link all configuration files
+function install()
+{
+    [ "$INST_POW" == "true" ] && installPowerline()
+    [ "$INST_VIM" == "true" ] && installVim()
+}
