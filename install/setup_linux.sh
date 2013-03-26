@@ -3,7 +3,7 @@
 # Hastly install dotfiles for current user
 # TODO: Clean this mess out!
 
-S_PATH="/home/$USER/.schematics"
+S_PATH="$HOME/.schematics"
 
 # Backup
 # TODO: Check if files exist before doing anything stupid
@@ -14,9 +14,9 @@ mv ~/.vimrc ~/.back
 mv ~/.vim ~/.back
 
 # Make links
-ln -s "$S_PATH/vim/vimrc" "/home/$USER/.vimrc"
-ln -s "$S_PATH/vim" "/home/$USER/.vim"
-ln -s "$S_PATH/powerline" "/home/$USER/.config/powerline"
+ln -s "$S_PATH/vim/vimrc" "$HOME/.vimrc"
+ln -s "$S_PATH/vim" "$HOME/.vim"
+ln -s "$S_PATH/powerline" "$HOME/.config/powerline"
 # We love links
 
 # Install these sexy stuff I would never make on my own
