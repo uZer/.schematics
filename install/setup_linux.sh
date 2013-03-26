@@ -22,11 +22,14 @@ function cleaning()
     # TODO: What has to be done
 }
 
-
-# Install powerline with pip
-# REQUIRES: python-pip
+# [POWERLINE]
+# Installing powerline with pip
+# Linking needed files
+#
+# REQUIRES: python-pip, vim-nox or any vim compiled with python
 function installPowerline()
 {
+    echo "Linking powerline configuration files..."
     pip install --user git+http://github.com/Lokaltog/powerline
 
     # On new profiles, .config folder doesn't exists
@@ -37,15 +40,15 @@ function installPowerline()
     ln -s "$S_PATH/powerline" "$HOME/.config/powerline"
 
     # Copying fonts if necessary
-    test [[]]
-    ln -s "$S_PATH/fonts" "$HOME/.fonts"
-
+    [ "$SCH_ISGRAPHICAL" == "true" ] && ln -s "$S_PATH/fonts" "$HOME/.fonts"
 }
 
-# Install vim configuration files
-# Retrieve vundle
+# [VIM]
+# Linking vim configuration files
+# Retrieving vundle
 function installVim()
 {
+    echo "Linking vim configuration files..."
     # Make links
     ln -s "$S_PATH/vim/vimrc" "$HOME/.vimrc"
     ln -s "$S_PATH/vim" "$HOME/.vim"
@@ -53,7 +56,8 @@ function installVim()
     # Install this sexy stuff I would never make on my own
     git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 
-    echo "Please run vim and type :BundleInstall to install necessary bundles."
+    echo "  [vim]   Please run vim and type :"
+    echo "  [vim]   \":BundleInstall\" to install necessary bundles."
 }
 
 # Link all configuration files
