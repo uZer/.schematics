@@ -7,21 +7,21 @@ S_PATH="$HOME/.schematics"
 
 # Backup
 # TODO: Check if files exist before doing anything stupid
-mkdir ~/.back
-unlink ~/.vimrc
-unlink ~/.vim/
-mv ~/.vimrc ~/.back
-mv ~/.vim ~/.back
 
+## Powerline-conf install
+# On new profiles, .config folder doesn't exists
+mkdir $HOME/.config
+# Link configuration
+ln -s "$S_PATH/powerline" "$HOME/.config/powerline"
+ln -s "$S_PATH/fonts" "$HOME/.fonts"
+# We love links
+
+## Vim-conf install
 # Make links
 ln -s "$S_PATH/vim/vimrc" "$HOME/.vimrc"
 ln -s "$S_PATH/vim" "$HOME/.vim"
-ln -s "$S_PATH/powerline" "$HOME/.config/powerline"
-# We love links
 
-# Install these sexy stuff I would never make on my own
-
-# Vundle, Bundle gesture for vim
+# Install this sexy stuff I would never make on my own
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 # I should tell you something
