@@ -8,19 +8,63 @@
 SCH_PATH="$HOME/.schematics" # Dotfiles
 SCH_ISGRAPHICAL="true" # True if X is installed (powerline font configuration)
 
-INST_POW="true"
-INST_VIM="true"
+INST_GIT="false"
+INST_POW="false"
+INST_VIM="false"
+
+# Backup dir in ~/.schematics/.backup.<timestamp>
+_BACKUPDIR="$SCH_PATH/.backup.`date +%s`"
 
 _DEBUG="on" # Debug mod
 [ "$_DEBUG" == "on" ] && echo "Debugging mod enabled"
 
 ###############################################################################
-# Cleaning method
+# Global cleaning method
 # Backup old configuration files, remove links
 cleaning ()
 {
     # TODO: What has to be done
     return
+}
+
+# Link method, taking care of old files
+makelink ()
+{
+    _SOURCE="$1"
+    _DEST="$2"
+
+    # Source doesn't exist
+    if [ ! -e "$_SOURCE" ]; then
+        echo "ERROR: Source file doesn't exist" 1>&2
+        return 1
+    fi
+
+    # Destination exists as a symbolic link
+    if [ -L "$_DEST" ]; then
+        echo "  Unlinking $_DEST..."
+
+        # Unlink and test
+        [ ! `unlink "$_DEST"` ] \
+        && "ERROR: Can't unlink file. Pease check permissions." 1>&2 \
+        && return 2
+    fi
+
+    # Destination exists as a file or folder
+    if [ -e "$_DEST" ]; then
+        echo "  Making backup dir $_DEST..."
+
+        # Created backup folder
+        mkdir -p $_BACKUPDIR 2>/dev/null
+
+        # Move the file/folder and check results
+        [ ! `mv $_DEST $_BACKUPDIR` ] \
+            && "ERROR: Can't make backup. Please check permissions." 1>&2 \
+            && return 3
+    fi
+
+    # Make the new link
+    ln -s $_SOURCE $_DEST
+    return 0
 }
 
 # [GIT]
@@ -29,7 +73,7 @@ installGit ()
 {
     echo "[GIT]"
     echo "  Linking git configuration files..."
-    ln -s $SCH_PATH/git/gitconfig $HOME/.gitconfig
+    makelink $SCH_PATH/git/gitconfig $HOME/.gitconfig
     return
 }
 
@@ -51,7 +95,7 @@ installPowerline ()
     mkdir "$HOME/.fonts"
 
     # Linking
-    ln -s "$SCH_PATH/powerline" "$HOME/.config/powerline"
+    makelink "$SCH_PATH/powerline" "$HOME/.config/powerline"
 
     # Copying fonts if necessary
     [ "$SCH_ISGRAPHICAL" == "true" ] && cp "$SCH_PATH/fonts/*" "$HOME/.fonts"
@@ -68,15 +112,15 @@ installVim ()
 
     # TODO: Trigger a warning if vim doesn't support python
     if [ `vim --version | grep "python"` -ne "0" ]; then
-        echo ""
-        echo "  WARNING: vim NOT compiled with python support."
-        echo "           Powerline for vim disabled"
-        echo ""
+        echo "" 2>&1
+        echo "  WARNING: vim NOT compiled with python support." 2>&1
+        echo "           Powerline for vim disabled" 2>&1
+        echo "" 2>&1
     fi
 
     # Make links
-    ln -s "$SCH_PATH/vim/vimrc" "$HOME/.vimrc"
-    ln -s "$SCH_PATH/vim" "$HOME/.vim"
+    makelink "$SCH_PATH/vim/vimrc" "$HOME/.vimrc"
+    makelink "$SCH_PATH/vim" "$HOME/.vim"
 
     # Install this sexy stuff I would never make on my own
     git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
@@ -87,7 +131,7 @@ installVim ()
 }
 
 ###############################################################################
-# [ "$INST_POW" == "true" ] && installGit
-# [ "$INST_POW" == "true" ] && installPowerline
-# [ "$INST_VIM" == "true" ] && installVim
+[ "$INST_GIT" == "true" ] && installGit
+[ "$INST_POW" == "true" ] && installPowerline
+[ "$INST_VIM" == "true" ] && installVim
 exit 0
