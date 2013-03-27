@@ -91,14 +91,22 @@ installPowerline ()
 
     # On new profiles, .config folder doesn't exists
     # TODO: clean this
-    mkdir "$HOME/.config"
-    mkdir "$HOME/.fonts"
+    mkdir "$HOME/.config" 2>/dev/null
 
     # Linking
     makelink "$SCH_PATH/powerline" "$HOME/.config/powerline"
 
+    return
+}
+
+installPowerlineFonts ()
+{
+    mkdir "$HOME/.fonts" 2>/dev/null
+
     # Copying fonts if necessary
-    [ "$SCH_ISGRAPHICAL" == "true" ] && cp "$SCH_PATH/fonts/*" "$HOME/.fonts"
+    # TODO: Check if graphical or not
+    cp "$SCH_PATH/fonts/*" "$HOME/.fonts"
+
     return
 }
 
@@ -110,7 +118,7 @@ installVim ()
     echo "[VIM]"
     echo "  Linking vim configuration files..."
 
-    # TODO: Trigger a warning if vim doesn't support python
+    # TODO: Fix line 114j
     if [ `vim --version | grep "python"` -ne "0" ]; then
         echo "" 2>&1
         echo "  WARNING: vim NOT compiled with python support." 2>&1
@@ -133,5 +141,6 @@ installVim ()
 ###############################################################################
 [ "$INST_GIT" == "true" ] && installGit
 [ "$INST_POW" == "true" ] && installPowerline
+[ "$INST_POF" == "true" ] && installPowerlineFonts
 [ "$INST_VIM" == "true" ] && installVim
 exit 0
