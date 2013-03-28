@@ -36,7 +36,7 @@ set backspace=2
 
 " FIX ME : FIX FR UTF-8
 " Spell Check
-set spelllang=en
+set spelllang=en,fr
 " set spell
 set spellsuggest=5
 
@@ -59,10 +59,6 @@ endfunction
 command! -range=% FixWhitespace call <SID>FixWhitespace(<line1>,<line2>)
 
 " Solarized
-set background=dark
-" set background=light
-map <F12> <ESC>:set background=light<cr>
-map <C-F12> <ESC>:set background=dark<cr>
 colorscheme solarized
 
 " C/C++ Support
@@ -381,6 +377,7 @@ Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'altercation/vim-colors-solarized'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Bundle 'tpope/vim-rails.git'
 " vim-scripts repos

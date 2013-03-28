@@ -9,8 +9,8 @@
 
 # Install selection
 INST_GIT="true"     # Enable Git Config Install
-INST_POW="false"    # Enable Powerline Install
-INST_POF="false"    # Enable Powerline Font setup
+INST_POW="true"    # Enable Powerline Install
+INST_POF="true"    # Enable Powerline Font setup
 INST_VIM="true"     # Enable Vim config Install
 
 # Dotfiles path
@@ -81,7 +81,9 @@ installPowerline ()
 
     echo "[POWERLINE]"
     echo "  Linking powerline configuration files..."
+    echo ""
     pip install --user git+http://github.com/Lokaltog/powerline
+    echo ""
 
     # On new profiles, .config folder doesn't exists
     # TODO: clean this
@@ -99,12 +101,16 @@ installPowerline ()
 # Recommended: Ubuntu Mono for Powerline 11
 installPowerlineFonts ()
 {
+    echo "[POWERLINE FONTS]"
+    echo "  Downloading font files..."
+    echo ""
     mkdir "$HOME/.fonts" 2>/dev/null
-
-    # Copying fonts if necessary
-    # TODO: Check if graphical or not
-    cp "$SCH_PATH/fonts/*" "$HOME/.fonts"
-
+    mkdir "$HOME/.fonts.conf.d" 2>/dev/null
+    wget -O $HOME/.fonts/PowerlineSymbols.otf \
+        https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
+    fc-cache -vf $HOME/.fonts
+    wget -O $HOME/.fonts.conf.d/10-powerline-symbols.conf \
+        https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
     echo ""
     return
 }
