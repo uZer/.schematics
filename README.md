@@ -44,6 +44,6 @@ This will download the remaining bundles
     # and type :BundleInstall, then :q!
 
     vim ~/.gitconfig
-    # and change you name
+    # and change your personal information
 
 
