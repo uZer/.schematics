@@ -8,10 +8,11 @@
 # ENVIRONMENT
 
 # Install selection
-INST_GIT="true"     # Enable Git Config Install
-INST_POW="true"    # Enable Powerline Install
-INST_POF="true"    # Enable Powerline Font setup
-INST_VIM="true"     # Enable Vim config Install
+INST_GIT="true"     # Enable Git Config     Install
+INST_POW="true"     # Enable Powerline      Install
+INST_POF="true"     # Enable Powerline-Font Install
+INST_VIM="true"     # Enable Vim config     Install
+INST_ZSH="true"     # Enable ZSH config     Install
 
 # Dotfiles path
 SCH_PATH="$HOME/.schematics"
@@ -153,6 +154,39 @@ installVim ()
     return
 }
 
+# [ZSH]
+# Linking zsh configuration files
+# Retrieving oh-my-zsh
+installZSH ()
+{
+    echo "[ZSH]"
+    echo "  Downloading Oh-My-Zsh..."
+    [ ! -e "$HOME/.oh-my-zsh"] && git clone \
+        git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+
+    echo "  Downloading Custom Themes..."
+    # git clone https://github.com/Juev/oh-my-zsh-powerline-theme-modified.git \
+    #   $SCH_PATH/zsh/themes/powerline-modified
+    # git clone https://github.com/jeremyFreeAgent/oh-my-zsh-powerline-theme.git \
+    #   $SCH_PATH/zsh/themes/powerline-theme
+
+    wget -O $HOME/.schematics/zsh/dircolors.256dark \
+        https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
+
+    echo ""
+    echo "  Linking zsh configuration files..."
+    makelink "$SCH_PATH/zsh/zshrc" "$HOME/.zshrc"
+
+    echo "  Linking custom themes..."
+    # ln -s "$SCH_PATH/zsh/themes/powerline-modified/powerline-modified.zsh-theme" \
+    #    "$HOME/.oh-my-zsh/themes/powerline-modified.zsh-theme"
+    # ln -s "$SCH_PATH/zsh/themes/powerline-theme/powerline.zsh-theme" \
+    #    "$HOME/.oh-my-zsh/themes/powerline.zsh-theme"
+
+    echo ""
+    return
+}
+
 ###############################################################################
 
 # Proceed installation
@@ -160,5 +194,6 @@ installVim ()
 [ "$INST_POW" == "true" ] && installPowerline
 [ "$INST_POF" == "true" ] && installPowerlineFonts
 [ "$INST_VIM" == "true" ] && installVim
+[ "$INST_ZSH" == "true" ] && installZSH
 
 exit 0
