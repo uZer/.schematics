@@ -81,11 +81,10 @@ installPowerline ()
     # TODO: Check if python-pip is installed
 
     echo "[POWERLINE]"
-    echo "  Linking powerline configuration files..."
-    echo ""
-    pip install --user git+http://github.com/Lokaltog/powerline
-    echo ""
+    echo "  Downloading and installing..."
+    pip install --user git+http://github.com/Lokaltog/powerline 1>&2>/dev/null
 
+    echo "  Linking powerline configuration files..."
     # On new profiles, .config folder doesn't exists
     # TODO: clean this
     mkdir "$HOME/.config" 2>/dev/null
@@ -104,14 +103,16 @@ installPowerlineFonts ()
 {
     echo "[POWERLINE FONTS]"
     echo "  Downloading font files..."
-    echo ""
     mkdir "$HOME/.fonts" 2>/dev/null
     mkdir "$HOME/.fonts.conf.d" 2>/dev/null
     wget -q -O $HOME/.fonts/PowerlineSymbols.otf \
-        https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
-    fc-cache -vf $HOME/.fonts
+        https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf \
+        1>&2>/dev/null
+    echo "  Cleaning cache..."
+    fc-cache -vf $HOME/.fonts 1>&2>/dev/null
     wget -q -O $HOME/.fonts.conf.d/10-powerline-symbols.conf \
-        https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
+        https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf \
+        1>&2>/dev/null
     echo ""
     return
 }
@@ -124,7 +125,6 @@ installVim ()
     echo "[VIM]"
     echo "  Linking vim configuration files..."
 
-    # TODO: Fix line 114
     eval vim --version | grep python 1>&2>/dev/null
     if [ "$?" -ne "0" ]; then
         echo "" 2>&1
@@ -139,13 +139,14 @@ installVim ()
 
     # Install this sexy stuff I would never make on my own
     if [ -d "$HOME/.vim/bundle/vundle" ]; then
-        echo ""
-        echo "Updating vundle..."
-        cd "$HOME/.vim/bundle/vundle" && git pull origin master
-        echo ""
+        echo "  Updating vundle..."
+        cd "$HOME/.vim/bundle/vundle"
+        git pull -q origin master 1>&2>/dev/null
+        cd $HOME
     else
         git clone -q \
-            https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+            https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle \
+            1>&2>/dev/null
     fi
 
     echo "  Please run vim and type :"
@@ -163,7 +164,8 @@ installZSH ()
     echo "[ZSH]"
     echo "  Downloading Oh-My-Zsh..."
     [ ! -e "$HOME/.oh-my-zsh" ] && git clone -q \
-        git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+        git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh \
+        1>&2>/dev/null
 
     echo "  Downloading Custom Themes..."
     # git clone https://github.com/Juev/oh-my-zsh-powerline-theme-modified.git \
@@ -172,7 +174,8 @@ installZSH ()
     #   $SCH_PATH/zsh/themes/powerline-theme
 
     wget -q -O $HOME/.schematics/zsh/dircolors.256dark \
-        https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
+        https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark \
+        1>&2>/dev/null
 
     echo ""
     echo "  Linking zsh configuration files..."
