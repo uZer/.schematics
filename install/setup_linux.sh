@@ -107,10 +107,10 @@ installPowerlineFonts ()
     echo ""
     mkdir "$HOME/.fonts" 2>/dev/null
     mkdir "$HOME/.fonts.conf.d" 2>/dev/null
-    wget -O $HOME/.fonts/PowerlineSymbols.otf \
+    wget -q -O $HOME/.fonts/PowerlineSymbols.otf \
         https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf
     fc-cache -vf $HOME/.fonts
-    wget -O $HOME/.fonts.conf.d/10-powerline-symbols.conf \
+    wget -q -O $HOME/.fonts.conf.d/10-powerline-symbols.conf \
         https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
     echo ""
     return
@@ -144,7 +144,8 @@ installVim ()
         cd "$HOME/.vim/bundle/vundle" && git pull origin master
         echo ""
     else
-        git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+        git clone -q \
+            https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
     fi
 
     echo "  Please run vim and type :"
@@ -161,7 +162,7 @@ installZSH ()
 {
     echo "[ZSH]"
     echo "  Downloading Oh-My-Zsh..."
-    [ ! -e "$HOME/.oh-my-zsh" ] && git clone \
+    [ ! -e "$HOME/.oh-my-zsh" ] && git clone -q \
         git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 
     echo "  Downloading Custom Themes..."
@@ -170,7 +171,7 @@ installZSH ()
     # git clone https://github.com/jeremyFreeAgent/oh-my-zsh-powerline-theme.git \
     #   $SCH_PATH/zsh/themes/powerline-theme
 
-    wget -O $HOME/.schematics/zsh/dircolors.256dark \
+    wget -q -O $HOME/.schematics/zsh/dircolors.256dark \
         https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark
 
     echo ""
