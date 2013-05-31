@@ -161,7 +161,7 @@ installZSH ()
 {
     echo "[ZSH]"
     echo "  Downloading Oh-My-Zsh..."
-    [ ! -e "$HOME/.oh-my-zsh"] && git clone \
+    [ ! -e "$HOME/.oh-my-zsh" ] && git clone \
         git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 
     echo "  Downloading Custom Themes..."
