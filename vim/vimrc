@@ -408,3 +408,8 @@ let g:nerdtree_tabs_open_on_console_startup=0 " Launch at start
 map <F10> <plug>NERDTreeTabsToggle<CR>
 inoremap <F10> <Esc><plug>NERDTreeTabsToggle<CR>
 let g:NERDTreeWinPos = "right"
+
+" Arduino
+autocmd BufNewFile,BufReadPost *.ino,*.pde set filetype=cpp
+
+
