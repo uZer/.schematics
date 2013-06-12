@@ -60,4 +60,6 @@ Also run vim and type the following command:
 
 This will download and install the remaining bundles
 
+![ZSH Vim](https://raw.github.com/uZer/.schematics/master/screenshots/[PuTTY].Vim.on.remote.server.png)
+
 
