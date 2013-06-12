@@ -4,6 +4,8 @@ Dotfile Schematics
 Nothing more than my boring dotfiles and terminal configurations.
 Easy install script included
 
+![ZSH Prompt](https://raw.github.com/uZer/.schematics/master/screenshots/[PuTTY].Prompt.on.remote.server.png)
+
 ### All in one installation
 
     sudo apt-get install vim-nox python-pip git ssh zsh
@@ -16,7 +18,7 @@ Easy install script included
 
     vim ~/.gitconfig
     # and change your personal information
-    
+
     # If you're happy with zsh
     chsh
     # and change for /bin/zsh
