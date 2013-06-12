@@ -2,7 +2,7 @@ Dotfile Schematics
 ==================
 
 Nothing more than my boring dotfiles and terminal configurations.
-Easy install script included
+Easy install script included. Designed for Debian Wheezy.
 
 ![ZSH Prompt](https://raw.github.com/uZer/.schematics/master/screenshots/[PuTTY].Prompt.on.remote.server.png)
 
@@ -49,7 +49,6 @@ You should first install the following packages before using Dotfile Schematics:
 Powerline for zsh may slow a little bit your prompt. Check notes about it in the
 official powerline documentation
 
-Tested on Debian Wheezy
 
 ### Post installation recommandations
 After installation, you should change the content of ~/.gitconfig with your
