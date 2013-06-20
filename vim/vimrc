@@ -140,10 +140,7 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 " Move on a line between words
 map <C-h> b
 map <C-l> w
-<<<<<<< HEAD
-=======
 map <C-q> ^
->>>>>>> dad9737f067b208c283945073b17c3abba525434
 map <C-e> $
 
 " Treat long lines as break lines (useful when moving around in them)
